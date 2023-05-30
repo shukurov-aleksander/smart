@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+  <changeSet id="1" author="Aleksander.shukurov@gmail.com">
+    <comment>create table "user_role_links"</comment>
+    <createTable tableName="user_role_links">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="active" type="boolean"/>
+      <column name="user_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="role_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="inserted_date_at_utc" type="timestamp without time zone">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_date_at_utc" type="timestamp without time zone">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="2" author="Aleksander.shukurov@gmail.com">
+    <comment>add foreign key to "user_id" column</comment>
+    <sql>
+      ALTER TABLE user_role_links
+        ADD CONSTRAINT fk_user_role_link_role FOREIGN KEY (role_id) REFERENCES role (id)
+    </sql>
+    <rollback>
+      <sql>
+        ALTER TABLE user_role_links DROP CONSTRAINT fk_user_role_link_role
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="3" author="Aleksander.shukurov@gmail.com">
+    <comment>add foreign key to "role_id" column</comment>
+    <sql>
+      ALTER TABLE user_role_links
+        ADD CONSTRAINT fk_role_user_link_user FOREIGN KEY (user_id) REFERENCES user (id)
+    </sql>
+    <rollback>
+      <sql>
+        ALTER TABLE user_role_links DROP CONSTRAINT fk_role_user_link_user
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="4" author="Aleksander.shukurov@gmail.com">
+    <comment>make "user_id" and "role_id" columns unique</comment>
+    <sql>
+      ALTER TABLE user_role_links
+        ADD CONSTRAINT uc_role_user UNIQUE (role_id, user_id);
+    </sql>
+    <rollback>
+      <sql>
+        ALTER TABLE user_role_links DROP CONSTRAINT uc_role_user
+      </sql>
+    </rollback>
+  </changeSet>
+</databaseChangeLog>

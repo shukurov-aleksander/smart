@@ -1,0 +1,23 @@
+services:
+
+  postgres:
+    extends:
+      file: ./databases/docker-compose.yml
+      service: postgres
+
+  liquibase_users:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extends:
+      file: ./databases/docker-compose.yml
+      service: liquibase_users
+
+  liquibase_devices:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extends:
+      file: ./databases/docker-compose.yml
+      service: liquibase_devices
+
