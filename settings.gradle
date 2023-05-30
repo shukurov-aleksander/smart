@@ -1,2 +1,11 @@
 rootProject.name = 'smart'
+include 'ku-common'
+include 'ku-devices'
+include 'ku-gateway'
+include 'ku-ping-generator'
+include 'ku-users'
+include 'ku-common'
+include 'ku-devices'
+include 'ku-gateway'
+include 'ku-ping-generator'
 

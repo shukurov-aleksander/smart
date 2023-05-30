@@ -40,4 +40,3 @@ out
 # Scripts
 # ----
 .temp
-terraform-module-*
