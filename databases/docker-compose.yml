@@ -1,6 +1,10 @@
 services:
   postgres:
     image: postgis/postgis:10-2.5-alpine
+    volumes:
+      - type: bind
+        source: ./init_dev_databases.sh
+        target: /docker-entrypoint-initdb.d/init_dev_databases.sh
     ports:
       - "5432:5432"
     environment:
@@ -12,7 +16,7 @@ services:
       timeout: 5s
       retries: 20
 
-  liquibase-users:
+  liquibase_users:
     image: liquibase/liquibase:4.6.2
     volumes:
       - ./databases/:/databases/ku-users/
@@ -28,7 +32,7 @@ services:
         --contexts=data,next_day,test_data
       update
 
-  liquibase-devices:
+  liquibase_devices:
     image: liquibase/liquibase:4.6.2
     volumes:
       - ./databases/:/databases/ku-devices/
@@ -38,7 +42,7 @@ services:
         --driver=org.postgresql.Driver
         --classpath="/databases/ku-devices/"
         --changeLogFile="changelog.xml"
-        --url="jdbc:postgresql://postgres:5432/postgres"
+        --url="jdbc:postgresql://postgres:5432/ku_devices"
         --username=postgres
         --password=postgres  
         --contexts=data,next_day,test_data

@@ -47,12 +47,12 @@
     <changeSet id="2" author="Aleksander.shukurov@gmail.com">
         <comment>add foreign key to "device_id" column</comment>
         <sql>
-            ALTER TABLE devices
+            ALTER TABLE device_pings
                 ADD CONSTRAINT fk_device_pings_devices FOREIGN KEY (device_id) REFERENCES devices (id)
         </sql>
         <rollback>
             <sql>
-                ALTER TABLE documents DROP CONSTRAINT fk_device_pings_devices
+                ALTER TABLE device_pings DROP CONSTRAINT fk_device_pings_devices
             </sql>
         </rollback>
     </changeSet>

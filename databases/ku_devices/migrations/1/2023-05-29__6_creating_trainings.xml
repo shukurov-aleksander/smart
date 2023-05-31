@@ -3,15 +3,15 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="Aleksander.shukurov@gmail.com">
-        <comment>create table "devices"</comment>
-        <createTable tableName="devices">
+        <comment>create table "trainings"</comment>
+        <createTable tableName="trainings">
             <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="model" type="varchar(256)">
+            <column name="start_date_at_utc" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="username" type="varchar(256)">
+            <column name="end_date_at_utc" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
             <column name="inserted_date_at_utc" type="timestamp without time zone">
@@ -20,21 +20,37 @@
             <column name="updated_date_at_utc" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="device_type_id" type="bigint">
+            <column name="device_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="training_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="2" author="Aleksander.shukurov@gmail.com">
-        <comment>add foreign key to "device_type_id" column</comment>
+        <comment>add foreign key to "device_id" column</comment>
         <sql>
-            ALTER TABLE devices
-                ADD CONSTRAINT fk_device_device_type FOREIGN KEY (device_type_id) REFERENCES device_type (id)
+            ALTER TABLE trainings
+                ADD CONSTRAINT fk_device_pings_devices FOREIGN KEY (device_id) REFERENCES devices (id)
         </sql>
         <rollback>
             <sql>
-                ALTER TABLE documents DROP CONSTRAINT fk_device_device_type
+                ALTER TABLE trainings DROP CONSTRAINT fk_trainings_devices
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="Aleksander.shukurov@gmail.com">
+        <comment>add foreign key to "training_type_id" column</comment>
+        <sql>
+            ALTER TABLE trainings
+                ADD CONSTRAINT fk_training_training_types FOREIGN KEY (trainig_type_id) REFERENCES trainig_type (id)
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE trainings DROP CONSTRAINT fk_training_training_types
             </sql>
         </rollback>
     </changeSet>

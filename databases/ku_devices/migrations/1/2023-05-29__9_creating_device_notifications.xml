@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="Aleksander.shukurov@gmail.com">
+        <comment>create table "trainings"</comment>
+        <createTable tableName="trainings">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="delivered" type="boolean"/>
+            <column name="inserted_date_at_utc" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date_at_utc" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alert_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Aleksander.shukurov@gmail.com">
+        <comment>add foreign key to "device_id" column</comment>
+        <sql>
+            ALTER TABLE devices
+                ADD CONSTRAINT fk_device_pings_devices FOREIGN KEY (device_id) REFERENCES devices (id)
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE device_notifications DROP CONSTRAINT fk_device_pings_devices
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="Aleksander.shukurov@gmail.com">
+        <comment>add foreign key to "alert_id" column</comment>
+        <sql>
+            ALTER TABLE device_notifications
+                ADD CONSTRAINT fk_device_notifications_alerts FOREIGN KEY (alert_id) REFERENCES alerts (id)
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE device_notifications DROP CONSTRAINT fk_device_notifications_alerts
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
