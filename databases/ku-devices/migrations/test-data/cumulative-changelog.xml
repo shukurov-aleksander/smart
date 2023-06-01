@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include file="2023-06-01__1_fill_table_device_types.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__2_fill-table-devices.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__3_fill_table_device_pings.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__4_fill_table_training_types.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__5_fill_table_trainings.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__6_fill_table_device_status.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__7_fill_table_alerts.xml" relativeToChangelogFile="true"/>
+    <include file="2023-06-01__8_fill_table_device_notifications.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

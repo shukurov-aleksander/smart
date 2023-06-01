@@ -30,7 +30,7 @@
         <comment>add foreign key to "device_type_id" column</comment>
         <sql>
             ALTER TABLE devices
-                ADD CONSTRAINT fk_device_device_type FOREIGN KEY (device_type_id) REFERENCES device_type (id)
+                ADD CONSTRAINT fk_device_device_type FOREIGN KEY (device_type_id) REFERENCES device_types (id)
         </sql>
         <rollback>
             <sql>

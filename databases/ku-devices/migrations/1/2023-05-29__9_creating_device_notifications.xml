@@ -3,8 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="Aleksander.shukurov@gmail.com">
-        <comment>create table "trainings"</comment>
-        <createTable tableName="trainings">
+        <comment>create table "device_notifications"</comment>
+        <createTable tableName="device_notifications">
             <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -27,7 +27,7 @@
     <changeSet id="2" author="Aleksander.shukurov@gmail.com">
         <comment>add foreign key to "device_id" column</comment>
         <sql>
-            ALTER TABLE devices
+            ALTER TABLE device_notifications
                 ADD CONSTRAINT fk_device_pings_devices FOREIGN KEY (device_id) REFERENCES devices (id)
         </sql>
         <rollback>

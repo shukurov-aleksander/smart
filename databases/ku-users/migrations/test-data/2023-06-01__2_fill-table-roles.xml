@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="Aleksander.shukurov@gmail.com" context="test_data">
+        <comment>fill in the table "roles" with test data</comment>
+        <sql>
+            WITH series AS (SELECT GENERATE_SERIES(1, 1000) sery)
+            INSERT INTO roles (role_name, inserted_date_at_utc, updated_date_at_utc)
+            SELECT 'Rolename' || s.sery,
+                   NOW() - FLOOR((RANDOM() * (1000 - 500) + 500)) * INTERVAL '1 day',
+                   NOW() - FLOOR((RANDOM() * (499 - 1) + 1)) * INTERVAL '1 day'
+            FROM series s
+        </sql>
+    </changeSet>
+</databaseChangeLog>

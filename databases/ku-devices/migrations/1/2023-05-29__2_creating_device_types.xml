@@ -3,8 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="Aleksander.shukurov@gmail.com">
-        <comment>create table "devices"</comment>
-        <createTable tableName="devices">
+        <comment>create table "device_types"</comment>
+        <createTable tableName="device_types">
             <column name="id" type="bigserial" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>

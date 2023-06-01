@@ -16,33 +16,33 @@ services:
       timeout: 5s
       retries: 20
 
-  liquibase_users:
-    image: liquibase/liquibase:4.6.2
+  liquibase_devices:
+    image: liquibase/liquibase:4.17.2
     volumes:
-      - ./databases/:/databases/ku-users/
+      - ./ku-devices/:/workspace/ku-devices/
     command: >
       liquibase
         --logLevel=INFO
         --driver=org.postgresql.Driver
-        --classpath="/databases/ku-users/"
+        --search-path="/workspace/ku-devices/"
         --changeLogFile="changelog.xml"
-        --url="jdbc:postgresql://postgres:5432/ku-users"
+        --url="jdbc:postgresql://postgres:5432/ku_devices"
         --username=postgres
         --password=postgres  
         --contexts=data,next_day,test_data
       update
-
-  liquibase_devices:
-    image: liquibase/liquibase:4.6.2
+      
+  liquibase_users:
+    image: liquibase/liquibase:4.17.2
     volumes:
-      - ./databases/:/databases/ku-devices/
+      - ./ku-users/:/workspace/ku-users/
     command: >
       liquibase
         --logLevel=INFO
         --driver=org.postgresql.Driver
-        --classpath="/databases/ku-devices/"
+        --search-path="/workspace/ku-users/"
         --changeLogFile="changelog.xml"
-        --url="jdbc:postgresql://postgres:5432/ku_devices"
+        --url="jdbc:postgresql://postgres:5432/ku_users"
         --username=postgres
         --password=postgres  
         --contexts=data,next_day,test_data

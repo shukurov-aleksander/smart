@@ -46,7 +46,7 @@
         <comment>add foreign key to "training_type_id" column</comment>
         <sql>
             ALTER TABLE trainings
-                ADD CONSTRAINT fk_training_training_types FOREIGN KEY (trainig_type_id) REFERENCES trainig_type (id)
+                ADD CONSTRAINT fk_training_training_types FOREIGN KEY (training_type_id) REFERENCES training_types (id)
         </sql>
         <rollback>
             <sql>

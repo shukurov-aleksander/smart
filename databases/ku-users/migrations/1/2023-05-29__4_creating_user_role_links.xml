@@ -28,7 +28,7 @@
     <comment>add foreign key to "user_id" column</comment>
     <sql>
       ALTER TABLE user_role_links
-        ADD CONSTRAINT fk_user_role_link_role FOREIGN KEY (role_id) REFERENCES role (id)
+        ADD CONSTRAINT fk_user_role_link_role FOREIGN KEY (role_id) REFERENCES roles (id)
     </sql>
     <rollback>
       <sql>
@@ -41,7 +41,7 @@
     <comment>add foreign key to "role_id" column</comment>
     <sql>
       ALTER TABLE user_role_links
-        ADD CONSTRAINT fk_role_user_link_user FOREIGN KEY (user_id) REFERENCES user (id)
+        ADD CONSTRAINT fk_role_user_link_user FOREIGN KEY (user_id) REFERENCES users (id)
     </sql>
     <rollback>
       <sql>
