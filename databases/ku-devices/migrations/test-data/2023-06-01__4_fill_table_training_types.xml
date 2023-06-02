@@ -7,9 +7,10 @@
         <sql>
             WITH series AS (SELECT GENERATE_SERIES(1, 1000) sery)
             INSERT INTO training_types (type_name, inserted_date_at_utc, updated_date_at_utc)
-            SELECT 'Type name' || s.sery,
-                   NOW() - FLOOR((RANDOM() * (1000 - 500) + 500)) * INTERVAL '1 day',
-                   NOW() - FLOOR((RANDOM() * (499 - 1) + 1)) * INTERVAL '1 day'
+            SELECT
+                  'Type name' || s.sery,
+                  NOW() - FLOOR((RANDOM() * (1000 - 500) + 500)) * INTERVAL '1 day',
+                  NOW() - FLOOR((RANDOM() * (499 - 1) + 1)) * INTERVAL '1 day'
             FROM series s
         </sql>
     </changeSet>
