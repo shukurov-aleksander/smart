@@ -6,16 +6,17 @@
         <comment>fill in the table "trainigs" with test data</comment>
         <sql>
             WITH series AS (SELECT GENERATE_SERIES(1, 1000) sery),
-                 count_series AS (SELECT COUNT(*) AS quantity FROM series)
+                 count_series AS (SELECT COUNT(*) AS quantity FROM series),
+                 random_date as (select  (NOW() - FLOOR((RANDOM() * (1000 - 700) + 700)) * INTERVAL '1 day'))
             INSERT INTO trainings (start_date_at_utc, end_date_at_utc, inserted_date_at_utc, updated_date_at_utc, device_id, training_type_id)
             SELECT
-                NOW() - FLOOR((RANDOM() * (1000 - 700) + 700)) * INTERVAL '1 day',
-                NOW() - FLOOR((RANDOM() * (700 - 699) + 699)) * INTERVAL '1 hour',
-                NOW() - FLOOR((RANDOM() * (700 - 550) + 550)) * INTERVAL '1 day',
-                NOW() - FLOOR((RANDOM() * (550 - 498) + 498)) * INTERVAL '1 day',
+                rd::text::timestamp without time zone at time zone 'Etc/UTC',
+                rd::text::timestamp without time zone at time zone 'Etc/UTC' + interval '2 hour',
+                rd::text::timestamp without time zone at time zone 'Etc/UTC' + interval '3 hour',
+                rd::text::timestamp without time zone at time zone 'Etc/UTC' + interval '10 day',
                 FLOOR(RANDOM() * (cs.quantity - 1) + 1),
                 FLOOR(RANDOM() * (cs.quantity - 1) + 1)
-            FROM series s, count_series cs
+                FROM series s, count_series cs, random_date rd
         </sql>
     </changeSet>
 </databaseChangeLog>

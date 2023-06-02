@@ -9,11 +9,11 @@
                  count_series AS (SELECT COUNT(*) AS quantity FROM series)
             INSERT INTO device_pings (weight, height, pulse, temperature, heartbeat, respiratory_rate, systolic_pressure, diastolic_pressure, inserted_date_at_utc, updated_date_at_utc,  device_id)
             select
-                FLOOR(RANDOM() * (150 - 1) + 1)::real,
-                    FLOOR(RANDOM() * (250 - 1) + 1)::real,
-                    FLOOR(RANDOM() * (150 - 40) + 40),
-                FLOOR(RANDOM() * (45 - 35) + 35)::real,
-                    FLOOR(RANDOM() * (150 - 40) + 40),
+                RANDOM() * (150 - 1) + 1,
+                RANDOM() * (250 - 1) + 1,
+                FLOOR(RANDOM() * (150 - 40) + 40),
+                RANDOM() * (45 - 35) + 35,
+                FLOOR(RANDOM() * (150 - 40) + 40),
                 FLOOR(RANDOM() * (25 - 12) + 12),
                 FLOOR(RANDOM() * (250 - 60) + 60),
                 FLOOR(RANDOM() * (200 - 50) + 50),
