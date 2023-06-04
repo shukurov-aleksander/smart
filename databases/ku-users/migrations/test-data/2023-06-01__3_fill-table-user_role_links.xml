@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="Aleksander.shukurov@gmail.com" context="test_data">
+        <comment>fill in the table "user_role_links" with test data</comment>
+        <sql>
+            WITH series AS (SELECT GENERATE_SERIES(1, 1000) sery)
+            INSERT INTO user_role_links (active, user_id, role_id, inserted_date_at_utc, updated_date_at_utc)
+            SELECT
+                   CASE
+                       WHEN s.sery % 10 = 0 THEN FALSE ELSE TRUE
+                   END,
+                   FLOOR(RANDOM() * ((SELECT COUNT(*) FROM USERS) - 1) + 1),
+                   FLOOR(RANDOM() * ((SELECT COUNT(*) FROM ROLES) - 1) + 1),
+                   NOW() - FLOOR((RANDOM() * (1000 - 500) + 500)) * INTERVAL '1 day',
+                   NOW() - FLOOR((RANDOM() * (499 - 1) + 1)) * INTERVAL '1 day'
+            FROM series s ON CONFLICT DO NOTHING
+        </sql>
+    </changeSet>
+</databaseChangeLog>
