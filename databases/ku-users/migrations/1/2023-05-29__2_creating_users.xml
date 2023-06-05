@@ -29,9 +29,20 @@
             <column name="inserted_date_at_utc" type="timestamp without time zone">
             <constraints nullable="false"/>
              </column>
-            <column name="updated_date_at_utc" type="timestamp without time zone">
-            <constraints nullable="false"/>
-            </column>
+            <column name="updated_date_at_utc" type="timestamp without time zone"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Aleksander.shukurov@gmail.com">
+        <comment>make "company_status" column unique</comment>
+        <sql>
+            ALTER TABLE users
+                ADD CONSTRAINT uc_username UNIQUE (username);
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE users DROP CONSTRAINT uc_username
+            </sql>
+        </rollback>
     </changeSet>
 </databaseChangeLog>
