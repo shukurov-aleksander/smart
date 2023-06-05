@@ -21,13 +21,13 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "findUser")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/findUser")
     @Operation(summary = "Find user")
     public String findUser() {
         return userService.getObject();
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "findAll")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/findAll")
     @Operation(summary = "Find users")
     public String findAll(
         @Parameter(description = "First name", example = "Ivan")
