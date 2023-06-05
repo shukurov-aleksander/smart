@@ -1,6 +1,7 @@
 package com.ku.users.controller;
 
 import com.ku.users.dto.UserListDto;
+import com.ku.users.entity.Gender;
 import com.ku.users.filter.UserFilter;
 import com.ku.users.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,10 +26,14 @@ public class UserController {
     public List<UserListDto> findAll(
         @Parameter(description = "First name", example = "Ivan")
         @RequestParam(value = "name", required = false) String name,
+        @Parameter(description = "Surname", example = "Ivanov")
+        @RequestParam(value = "surname", required = false)  String surname,
         @Parameter(description = "Username", example = "IvanIvanov12")
         @RequestParam(value = "userName", required = false)  String username,
-        @Parameter(description = "Password", example = "123456789")
-        @RequestParam(value = "password", required = false)  String password,
+        @Parameter(description = "Age", example = "18")
+        @RequestParam(defaultValue = "18") Long age,
+        @RequestParam(value = "gender", required = false)
+        @Parameter(description = "Gender", example = "FEMALE") Gender gender,
         @Parameter(description = "Offset", example = "0")
         @RequestParam(defaultValue = "0") Integer offset,
         @Parameter(description = "Limit", example = "20")
@@ -38,7 +43,9 @@ public class UserController {
             new UserFilter()
                 .setName(name)
                 .setUsername(username)
-                .setPassword(password)
+                .setSurName(surname)
+                .setAge(age)
+                .setGender(gender)
                 .setLimit(limit)
                 .setOffset(offset));
     }

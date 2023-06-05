@@ -16,8 +16,10 @@ public class UserService {
     public String findAll(UserFilter filter) {
         StringBuilder findAllUrlBuilder = new StringBuilder("http://localhost:8084/findAll/?");
         filter.getName().ifPresent(name -> findAllUrlBuilder.append("&name=").append(name));
+        filter.getSurName().ifPresent(surname -> findAllUrlBuilder.append("&surname=").append(surname));
         filter.getUsername().ifPresent(username -> findAllUrlBuilder.append("&username=").append(username));
-        filter.getPassword().ifPresent(password -> findAllUrlBuilder.append("&password=").append(password));
+        filter.getAge().ifPresent(age -> findAllUrlBuilder.append("&age=").append(age));
+        filter.getGender().ifPresent(gender -> findAllUrlBuilder.append("&gender=").append(gender));
         filter.getOffset().ifPresent(offset -> findAllUrlBuilder.append("&offset=").append(offset));
         filter.getLimit().ifPresent(limit -> findAllUrlBuilder.append("&limit=").append(limit));
         return restTemplate.getForObject(findAllUrlBuilder.toString(), String.class);

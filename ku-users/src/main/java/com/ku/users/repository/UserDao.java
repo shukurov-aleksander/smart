@@ -1,6 +1,7 @@
 package com.ku.users.repository;
 
 import com.ku.users.dto.UserListDto;
+import com.ku.users.entity.Gender;
 import com.ku.users.filter.UserFilter;
 import java.sql.ResultSet;
 import java.util.List;
@@ -13,16 +14,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDao {
     private static final String FIND_ALL_QUERY = """
-        SELECT u.id, u.name, u.surname, u.age, u.gender, u.username, u.password, u.inserted_date_at_utc, u.updated_date_at_utc
+        SELECT u.id, u.name, u.surname, u.age, u.gender, u.username
         FROM users u
         WHERE (:name::text IS NULL OR u.name = :name)
-            AND (:surname::text  IS NULL OR u.surname = :surname)
+            AND (:surname::text IS NULL OR u.surname = :surname)
             AND (:age::integer  IS NULL OR u.age = :age)
-            AND (:gender::gender_enum IS NULL OR u.gender = :gender::gender_enum)
+            AND (:gender::gender_enum  IS NULL OR u.gender = :gender::gender_enum)
             AND (:username::text  IS NULL OR u.username = :username)
-            AND (:password::text IS NULL OR u.password = :password)
-            AND (:inserted_date_at_utc::timestamp IS NULL OR u.inserted_date_at_utc = :inserted_date_at_utc::timestamp)
-            AND (:updated_date_at_utc::timestamp IS NULL OR u.updated_date_at_utc = :updated_date_at_utc::timestamp)
         LIMIT :limit OFFSET :offset
     """;
 
@@ -37,15 +35,19 @@ public class UserDao {
         return new UserListDto()
             .setId(rs.getLong("id"))
             .setName(rs.getString("name"))
+            .setSurName(rs.getString("surname"))
             .setUsername(rs.getString("username"))
-            .setPassword(rs.getString("password"));
+            .setGender(Gender.valueOf(rs.getString("gender")))
+            .setAge(rs.getLong("age"));
     }
 
     public MapSqlParameterSource filteredFieldsMap(UserFilter filter) {
         return new MapSqlParameterSource()
             .addValue("name", filter.getName())
+            .addValue("surname", filter.getSurName())
             .addValue("username", filter.getUsername())
-            .addValue("password", filter.getPassword())
+            .addValue("age", filter.getAge())
+            .addValue("gender", filter.getGender() == null ? null : filter.getGender().toString())
             .addValue("limit", filter.getLimit())
             .addValue("offset", filter.getOffset());
     }
