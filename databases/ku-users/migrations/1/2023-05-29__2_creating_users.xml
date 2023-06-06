@@ -21,7 +21,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(256)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="password" type="varchar(256)">
                 <constraints nullable="false"/>
@@ -34,7 +34,7 @@
     </changeSet>
 
     <changeSet id="2" author="Aleksander.shukurov@gmail.com">
-        <comment>make "company_status" column unique</comment>
+        <comment>make "username" column unique</comment>
         <sql>
             ALTER TABLE users
                 ADD CONSTRAINT uc_username UNIQUE (username);
