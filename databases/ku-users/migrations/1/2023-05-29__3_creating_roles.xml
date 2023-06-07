@@ -9,7 +9,7 @@
         <constraints primaryKey="true"/>
       </column>
       <column name="role_name" type="varchar(256)">
-        <constraints nullable="false"/>
+        <constraints nullable="false" unique="true"/>
       </column>
       <column name="inserted_date_at_utc" type="timestamp without time zone">
         <constraints nullable="false"/>

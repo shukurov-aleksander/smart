@@ -21,12 +21,6 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = {"/id"})
-    @Operation(summary = "Find user by id")
-    public String findUser() {
-        return userService.getObject();
-    }
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Find users")
     public String findAll(

@@ -19,5 +19,4 @@ public class UserService {
     public void setCompanyDao(UserDao userDao) {
         this.userDao = userDao;
     }
-
 }
