@@ -10,10 +10,10 @@
       </column>
       <column name="active" type="boolean"/>
       <column name="user_id" type="bigint">
-        <constraints nullable="false"/>
+        <constraints nullable="false" foreignKeyName="fk_user_role_link_user" references="users(id)"/>
       </column>
       <column name="role_id" type="bigint">
-        <constraints nullable="false"/>
+        <constraints nullable="false" foreignKeyName="fk_user_role_link_role" references="roles(id)"/>
       </column>
       <column name="inserted_date_at_utc" type="timestamp without time zone">
         <constraints nullable="false"/>
@@ -23,32 +23,6 @@
   </changeSet>
 
   <changeSet id="2" author="Aleksander.shukurov@gmail.com">
-    <comment>add foreign key to "user_id" column</comment>
-    <sql>
-      ALTER TABLE user_role_links
-        ADD CONSTRAINT fk_user_role_link_role FOREIGN KEY (role_id) REFERENCES roles (id)
-    </sql>
-    <rollback>
-      <sql>
-        ALTER TABLE user_role_links DROP CONSTRAINT fk_user_role_link_role
-      </sql>
-    </rollback>
-  </changeSet>
-
-  <changeSet id="3" author="Aleksander.shukurov@gmail.com">
-    <comment>add foreign key to "role_id" column</comment>
-    <sql>
-      ALTER TABLE user_role_links
-        ADD CONSTRAINT fk_role_user_link_user FOREIGN KEY (user_id) REFERENCES users (id)
-    </sql>
-    <rollback>
-      <sql>
-        ALTER TABLE user_role_links DROP CONSTRAINT fk_role_user_link_user
-      </sql>
-    </rollback>
-  </changeSet>
-
-  <changeSet id="4" author="Aleksander.shukurov@gmail.com">
     <comment>make "user_id" and "role_id" columns unique</comment>
     <sql>
       ALTER TABLE user_role_links
@@ -61,7 +35,7 @@
     </rollback>
   </changeSet>
 
-  <changeSet id="5" author="Aleksander.shukurov@gmail.com">
+  <changeSet id="3" author="Aleksander.shukurov@gmail.com">
     <comment>add index role_id</comment>
     <sql>
       CREATE INDEX idx_role
@@ -74,7 +48,7 @@
     </rollback>
   </changeSet>
 
-  <changeSet id="6" author="Aleksander.shukurov@gmail.com">
+  <changeSet id="4" author="Aleksander.shukurov@gmail.com">
     <comment>add index user_id</comment>
     <sql>
       CREATE INDEX idx_user
