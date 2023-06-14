@@ -5,8 +5,6 @@ import com.ku.users.dto.UserListDto;
 import com.ku.users.entity.Gender;
 import com.ku.users.filter.UserFilter;
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
