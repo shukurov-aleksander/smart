@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,13 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = {"/id"})
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Find user by id")
-    public String findUser() {
-        return userService.getObject();
+    public String findById(
+        @Parameter(description = "User id", required = true, example = "1")
+        @PathVariable Long id
+    ) {
+        return userService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

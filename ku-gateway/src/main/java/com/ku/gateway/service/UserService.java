@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 public class UserService {
     private RestTemplate restTemplate;
 
-    public String getObject() {
-        return restTemplate.getForObject("http://localhost:8084/data", String.class);
+    public String findById(Long id) {
+        return restTemplate.getForObject("http://localhost:8084/" + id, String.class);
     }
 
     public String findAll(UserFilter filter) {

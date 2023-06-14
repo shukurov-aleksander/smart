@@ -1,5 +1,6 @@
 package com.ku.users.service;
 
+import com.ku.users.dto.UserDto;
 import com.ku.users.dto.UserListDto;
 import com.ku.users.filter.UserFilter;
 import com.ku.users.repository.UserDao;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private UserDao userDao;
 
+    public UserDto findById(Long id) {
+        return userDao.findById(id);
+    }
     public List<UserListDto> findAll(UserFilter filter) {
         return userDao.findAll(filter);
     }
