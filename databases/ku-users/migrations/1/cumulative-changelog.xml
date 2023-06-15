@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include file="2023-05-29__1_creating_enum_types.xml" relativeToChangelogFile="true"/>
+    <include file="2023-05-29__2_creating_users.xml" relativeToChangelogFile="true"/>
+    <include file="2023-05-29__3_creating_roles.xml" relativeToChangelogFile="true"/>
+    <include file="2023-05-29__4_creating_user_role_links.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

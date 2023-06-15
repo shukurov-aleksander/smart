@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+  <changeSet id="1" author="Aleksander.shukurov@gmail.com">
+    <comment>create table "user_role_links"</comment>
+    <createTable tableName="user_role_links">
+      <column name="id" type="bigserial" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="active" type="boolean"/>
+      <column name="user_id" type="bigint">
+        <constraints nullable="false" foreignKeyName="fk_user_role_link_user" references="users(id)"/>
+      </column>
+      <column name="role_id" type="bigint">
+        <constraints nullable="false" foreignKeyName="fk_user_role_link_role" references="roles(id)"/>
+      </column>
+      <column name="inserted_date_at_utc" type="timestamp without time zone">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_date_at_utc" type="timestamp without time zone"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="2" author="Aleksander.shukurov@gmail.com">
+    <comment>make "user_id" and "role_id" columns unique</comment>
+    <sql>
+      ALTER TABLE user_role_links
+        ADD CONSTRAINT uc_role_user UNIQUE (role_id, user_id);
+    </sql>
+    <rollback>
+      <sql>
+        ALTER TABLE user_role_links DROP CONSTRAINT uc_role_user
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="3" author="Aleksander.shukurov@gmail.com">
+    <comment>add index role_id</comment>
+    <sql>
+      CREATE INDEX idx_role
+        ON user_role_links(role_id);
+    </sql>
+    <rollback>
+      <sql>
+        DROP INDEX idx_role
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="4" author="Aleksander.shukurov@gmail.com">
+    <comment>add index user_id</comment>
+    <sql>
+      CREATE INDEX idx_user
+        ON user_role_links(user_id);
+    </sql>
+    <rollback>
+      <sql>
+        DROP INDEX idx_user
+      </sql>
+    </rollback>
+  </changeSet>
+</databaseChangeLog>
